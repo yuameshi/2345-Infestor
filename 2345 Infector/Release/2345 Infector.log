@@ -1,0 +1,11 @@
+﻿  2345 Infector.cpp
+F:\VS Proj\2345 Infector\2345 Infector\2345 Infector.cpp(105,20): warning C4018: “<”: 有符号/无符号不匹配
+  Microsoft (R) Incremental Linker Version 14.28.29336.0
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  "/OUT:F:\VS Proj\2345 Infector\Release\2345 Infestor.exe" /INCREMENTAL:NO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST "/MANIFESTUAC:level='requireAdministrator' uiAccess='false'" /manifest:embed /DEBUG "/PDB:F:\VS Proj\2345 Infector\Release\2345 Infestor.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /WINMD:NO /RELEASE /DYNAMICBASE /NXCOMPAT "/IMPLIB:F:\VS Proj\2345 Infector\Release\2345 Infestor.lib" /MACHINE:X86 /SAFESEH "Release\2345 Infestor.res" 
+  "Release\2345 Infector.obj" 
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+  All 125 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  2345 Infector.vcxproj -> F:\VS Proj\2345 Infector\Release\2345 Infestor.exe
